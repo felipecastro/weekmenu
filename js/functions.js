@@ -1707,7 +1707,7 @@ function carregaMenusUser(userid){
     var query = new Parse.Query(Menus);
 
     query.equalTo("owner", (userid == null) ? Parse.User.current().id : userid);
-    
+
     if (userid === undefined || userid == null || userid.length <= 0) {
       query.equalTo("ativo", true);
     } else {
@@ -1725,13 +1725,13 @@ function carregaMenusUser(userid){
 
             //console.log(results);
 
-            dados =  '<div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">';
+            dados =  '<div class="mdl-cell mdl-cell--12-col">';
 
             for (var i = 0; i < results.length; i++) {
 
               var menu = results[i];
 
-              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list">';
+              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list  mdl-shadow--2dp">';
               dados += '    <div class="mdl-grid mdl-grid--no-spacing mdl-cell--9-col-desktop mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-color-text--grey-700">';
               dados += '      <div class="mdl-cell mdl-cell--12-col">';
               dados += '        <div class="mdl-card__supporting-text list_title" href="'+host+'>m/'+menu.id+'">';
@@ -1798,7 +1798,7 @@ function carregaPratosUser(userid){
     var query = new Parse.Query(Pratos);
 
     query.equalTo("owner", (userid == null) ? Parse.User.current().id : userid);
-    
+
     if (userid === undefined || userid == null || userid.length <= 0) {
       query.equalTo("ativo", true);
     } else {
@@ -1812,7 +1812,7 @@ function carregaPratosUser(userid){
           success: function(results) {
 
             if (results.length > 0) {
-            
+
               var dados = '';
 
               //console.log(results);
@@ -1891,7 +1891,7 @@ function carregaColecoesUser(userid){
           success: function(results) {
 
             if (results.length > 0) {
-            
+
               var dados = '';
 
               //console.log(results);
