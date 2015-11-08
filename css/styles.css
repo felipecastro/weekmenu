@@ -1,0 +1,582 @@
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+  margin: 0;.mdl-wm .mdl-menu__container
+  padding: 0;
+background-color: #f5f5f5 !important;
+}
+.mdl-wm .mdl-layout__header-row {
+  //padding-left: 40px;
+}
+.mdl-wm .mdl-layout.is-small-screen .mdl-layout__header-row h3 {
+  font-size: inherit;
+}
+.mdl-wm .mdl-layout__tab-bar-button {
+  display: none;
+}
+.mdl-wm .mdl-layout.is-small-screen .mdl-layout__tab-bar .mdl-button {
+  display: none;
+}
+.mdl-wm .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar,
+.mdl-wm .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar-container {
+  overflow: visible;
+}
+.mdl-wm .mdl-layout__tab-bar-container {
+  height: 64px;
+}
+.mdl-wm .mdl-layout__tab-bar {
+  padding: 0;
+  padding-left: 16px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.mdl-wm .mdl-layout__tab-bar .mdl-layout__tab {
+  height: 64px;
+  line-height: 64px;
+}
+.mdl-wm .mdl-layout__tab-bar .mdl-layout__tab.is-active::after {
+  background-color: white;
+  height: 4px;
+}
+.mdl-wm main > .mdl-layout__tab-panel {
+  padding: 8px;
+  padding-top: 48px;
+}
+.mdl-wm main > .mdl-layout__tab-panel.single_page {
+  padding: 8px;
+  padding-top: 20px;
+}
+.mdl-wm .mdl-card {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.mdl-wm .mdl-card > * {
+  height: auto;
+}
+.mdl-wm .mdl-card .mdl-card__supporting-text {
+  margin: 40px;
+  flex-grow: 1;
+  padding: 0;
+  color: inherit;
+  width: calc(100% - 80px);
+}
+.mdl-wm.mdl-wm .mdl-card__supporting-text h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.mdl-wm.mdl-wm .mdl-card__supporting-text .menudia h4 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.mdl-wm .mdl-card__actions {
+  margin: 0;
+  padding: 4px 40px;
+  color: inherit;
+}
+.mdl-wm .mdl-card__actions a {
+  color: #b3d4fc;
+  margin: 0;
+}
+.mdl-wm .mdl-card__actions a:hover,
+.mdl-wm .mdl-card__actions a:active {
+  color: inherit;
+  background-color: transparent;
+}
+.mdl-wm .mdl-card__supporting-text + .mdl-card__actions {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.button_add_act {
+  float: right;
+left: 7%;
+}
+.actions_add {
+  padding-top: 22px;
+}
+
+.menu-list_action {
+padding-top: 10px;
+    padding-left: 3%;
+}
+.mdl-wm #add {
+  position: absolute;
+  right: 40px;
+  top: 36px;
+  z-index: 999;
+}
+
+.more_dia {
+color: white !important;
+}
+
+.mdl-layout-title {
+  font-size: 25px;
+  font-weight: 100;
+}
+
+.mdl-layout-title a {
+  font-size: 25px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 100;
+}
+
+.single_page {
+  padding-top: 20px;
+}
+
+.mdl-layout-title a:hover {
+  font-size: 25px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 100;
+}
+
+.center_menor {
+  max-width: 660px !important;
+}
+
+.menu_header_actions {
+  display: flex;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  font-size: 12px !important;
+  font-weight: 100 !important;
+}
+
+.mdl-wm .mdl-layout__content section:not(:last-of-type) {
+  position: relative;
+  margin-bottom: 48px;
+}
+.mdl-wm section.section--center {
+  max-width: 860px;
+}
+.mdl-wm #features section.section--center {
+  max-width: 620px;
+}
+.mdl-wm section.section--center .center_menor {
+  max-width: 660px;
+}
+.mdl-wm section > header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mdl-wm section > .section__play-btn {
+  min-height: 200px;
+}
+.mdl-wm section > header > .material-icons {
+  font-size: 3rem;
+}
+.mdl-wm section > button {
+  position: absolute;
+  z-index: 99;
+  top: 8px;
+  right: 8px;
+}
+
+.mdl-wm section > button > .more_dia {
+  position: absolute;
+  z-index: 99;
+  top: 8px;
+  right: 8px;
+color: white;
+}
+
+.mdl-wm section > button {
+  position: absolute;
+  z-index: 99;
+  top: 8px;
+  right: 8px;
+}
+.mdl-wm section .section__circle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+.mdl-wm section .section__text {
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding-top: 8px;
+}
+.mdl-wm section .section__text h5 {
+  font-size: inherit;
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+.mdl-wm section .section__text a {
+  text-decoration: none;
+}
+.mdl-wm section .section__circle-container > .section__circle-container__circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  margin: 8px 0;
+}
+.mdl-wm section .section__circle-container > .section__circle-container__circle i {
+padding-top: 25%;
+    padding-left: 25%;
+    font-size: 2.5em;
+    color: white;
+}
+.mdl-wm section.section--footer .section__circle--big {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  margin: 8px 32px;
+}
+.mdl-wm .is-small-screen section.section--footer .section__circle--big {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  margin: 8px 16px;
+}
+.mdl-wm section.section--footer {
+  padding: 64px 0;
+  margin: 0 -8px -8px -8px;
+}
+.mdl-wm section.section--center .section__text:not(:last-child) {
+  border-bottom: 1px solid rgba(0,0,0,.13);
+}
+.mdl-wm .mdl-card .mdl-card__supporting-text > h3:first-child {
+  margin-bottom: 24px;
+}
+.mdl-wm .mdl-layout__tab-panel:not(#overview) {
+  background-color: #f5f5f5;
+}
+.mdl-wm #features section {
+  margin-bottom: 72px;
+}
+.mdl-wm #features h4, #features h5 {
+  margin-bottom: 16px;
+}
+.mdl-wm .toc {
+  border-left: 4px solid #C1EEF4;
+  margin: 24px;
+  padding: 0;
+  padding-left: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.mdl-wm .toc h4 {
+  font-size: 0.9rem;
+  margin-top: 0;
+}
+.mdl-wm .toc a {
+  color: #4DD0E1;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 28px;
+  display: block;
+}
+.mdl-wm .mdl-menu__container {
+  /*z-index: 99;*/
+}
+
+.dia_label {
+font-size: 4em;
+}
+
+.menus_list {
+min-height: 50px !important;
+    margin: 0px;
+    padding: 8px;
+    background: white;
+border-bottom: thin solid #f5f5f5;
+    -webkit-transition-property: background; /* Safari */
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-property: background;
+    transition-duration: 0.2s;
+}
+
+.menus_list:hover {
+    background: #f5f5f5;
+}
+
+.list_title {
+font-size: 17px;
+font-weight: 400;
+}
+
+.list_title a {
+font-size: 110%;
+font-weight: 300;
+text-decoration: none;
+}
+
+.list_title a:hover {
+//text-decoration: underline;
+font-weight: 400;
+}
+
+.list_extra {
+font-size: 12px;
+font-weight: 100;
+}
+
+.list_extra_busca {
+font-size: 10px;
+font-weight: 100;
+padding: 0 0 0 16px !important;
+}
+
+.list_extra_busca_add {
+padding-top: 15% !important;
+}
+
+.font_100 {
+font-weight: 100;
+}
+
+.btn-add {
+top: 160px !important;
+right: 90px !important;
+z-index: 9999 !important;
+}
+.menudia {
+ margin: 25px !important;
+}
+
+.receita_head {
+ //margin: 25px !important;
+ //   padding-top: 200px !important;
+}
+
+.menudia a {
+ color: white;
+ text-decoration: inherit;
+ font-weight: 300;
+    -webkit-transition-property: text-decoration; /* Safari */
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-property: text-decoration;
+    transition-duration: 0.5s;
+}
+
+.menudia a:hover {
+ color: white;
+ text-decoration: underline;
+}
+
+#pratodescnext {
+ color: white;
+ font-weight: 300;
+}
+#pratodescnext a {
+ color: white;
+ font-weight: 300;
+ text-decoration: inherit;
+}
+#pratodescnext a:hover {
+ color: white;
+ font-weight: 300;
+ text-decoration: underline;
+}
+
+.menudia h3 {
+margin: 10px 0;
+font-weight: 100;
+}
+
+.receita_head h3 {
+margin: 0px !important;
+font-weight: 100;
+}
+
+.menudia h2 {
+  padding-top: 20px;
+  font-weight: 100;
+}
+
+.menudia h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.menuativo-card {
+    min-height: 100px;
+}
+.np-logo-image {
+  height: 60px;
+  //width: 140px;
+}
+
+.np-logo-image-menu {
+  height: 110px;
+}
+
+.img-circle {
+border-radius: 30px;
+}
+
+.table-container {
+    min-height: 0px;
+}
+
+.section-header {
+    padding: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.mdl-data-table td:first-of-type, .mdl-data-table th:first-of-type {
+    padding-left: 24px !important;
+    font-size: 17px !important;
+}
+
+.mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
+    text-align: left !important;
+    padding: 20px !important;
+}
+
+.fc-event-menu {
+    line-height: 1.3 !important;
+}
+
+.fc-event-prato {
+    line-height: 2.3 !important;
+}
+
+.label_field-busca {
+    padding-left: 10px;
+    font-size: 25px;
+}
+
+.mdl-textfield__input_busca {
+ font-size: 20px !important;
+}
+
+.img_avatar_menu {
+  margin-left: -15px;
+  margin-right: 10px;
+}
+
+.menu_head_extra {
+  font-size: 13px !important;
+}
+
+.menu_head_extra_tempo {
+  padding-top: 6px;
+}
+
+.list_prato {
+font-size: 26px;
+}
+
+.link_prato {
+list-style-type: none;
+}
+
+.link_prato a {
+font-size: 17px;
+    font-weight: 400;
+    text-decoration: none;
+color: #757575 !important;
+}
+
+.link_prato a:hover {
+text-decoration: underline;
+}
+
+.lista_prato_img {
+float: right;
+}
+
+.menu_dia_lista {
+  margin-left: -100px;
+}
+
+.home_banner_act {
+    padding: 15px 25px !important;
+}
+
+.receita-card-image.mdl-card {
+  //width: 251px;
+  height: 300px;
+  //background: url('../assets/demos/image_card.jpg') center / cover;
+margin: 7px;
+}
+.receita-card-image > .mdl-card__actions {
+  //height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.receita-card-image__filename {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.menu_link {
+    text-decoration: none;
+    color: #fff !important;
+    font-weight: 300;
+    font-size: 1.4em;
+}
+
+.dia_card {
+min-height: 75px;
+}
+
+.menu_receita_lista {
+    min-height: 60px !important;
+}
+
+.prato_modal {
+    padding: 3px;
+}
+
+.lbl_login_card {
+    min-height: 100px !important;
+}
+
+.lbl_login {
+font-weight: 200;
+    padding-left: 37%;
+}
+
+.txt_field_login {
+    width: 87% !important;
+}
+
+.input_login_card {
+padding-left: 35px;
+    min-height: 150px;
+}
+
+.alert-danger {
+color: red;
+    font-size: 0.9em;
+    font-weight: 100;
+}
+
+.dia_label {
+    margin: 12px;
+    font-size: 260%;
+}
+
+.mn-menu-lower-right {
+top: 5%;
+    right: 2%;
+    position: absolute;
+}
+
+.wm-drawer-separator {
+  height: 1px;
+  background-color: #dcdcdc;
+  margin: 8px 0;
+}
+
+.add_placeholder_div {
+min-height: 200px;
+}
+.add_placeholder_inner {
+    padding: 10px 0 0 25%;
+}
+.add_button {
+font-size: 4em;
+    padding-left: 25%;
+text-decoration: none;
+}

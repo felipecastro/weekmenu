@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Saraiva.com - Onda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="ico/favicon.png">
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.7.min.js"></script>
+  </head>
+
+  <body>
+  <script type="text/javascript">  
+  function dateFormat(date, format) {
+    // Calculate date parts and replace instances in format string accordingly
+    format = format.replace("DD", (date.getDate() < 10 ? '0' : '') + date.getDate()); // Pad with '0' if needed
+    format = format.replace("MM", (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1)); // Months are zero-based
+    format = format.replace("YYYY", date.getFullYear());
+    return format;
+}
+</script>
+<script type="text/javascript">
+Parse.initialize("SdBdf6igppNbkKe6gHknCyHq4gRRxj7V3Qb1XSrk", "V6vI73CKs2RTIjjjNGfLI2VrdYGxcDIXJVKPHr1z");
+
+var $_GET = {},
+    args = location.search.substr(1).split(/&/);
+for (var i=0; i<args.length; ++i) {
+    var tmp = args[i].split(/=/);
+    if (tmp[0] != "") {
+        $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
+    }
+}
+
+//console.log($_GET.id);
+
+var pacotes = Parse.Object.extend("pacote");
+var query = new Parse.Query(pacotes);
+query.equalTo("onda", $_GET.id);
+query.find({
+  success: function(results) {
+    var i;
+    var dados;
+    for (i = 0; i < results.length; ++i) {
+    	//console.log(results[i]);
+    	//alert(results[i].attributes.data_deploy);
+    	
+    	var sAux;
+    	if (results[i].attributes.criticidade > 5)
+    	 sAux = ' class="error"';
+    	
+    	dados = dados + '<tr '+sAux+'><td>'+results[i].id+'</td><td>'+results[i].attributes.notas+'</td><td>'+results[i].attributes.criticidade+'</td><td>'+dateFormat(results[i].attributes.fim, "DD/MM/YYYY")+'</td><td>'+results[i].attributes.escopo+'</td><td>'+results[i].attributes.status+'</td><td><a href="pacote.htm?id='+results[i].id+'">detalhar...</a></td></tr>';
+	}
+	
+	$('#pacotes').html(dados);
+	$('#ondalbl').html($_GET.id);
+  },
+  error: function(error) {
+    alert("Error: " + error.code + " " + error.message);
+  }
+})
+  </script>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.htm">Saraiva.com</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">Consulta</a></li>
+              <li><a href="#contact">Histórico</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+          <form class="navbar-search pull-left">
+            <input type="text" class="search-query" placeholder="Busca">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+<ul class="breadcrumb">
+  <li><a href="index.htm">Ondas</a> <span class="divider">/</span></li>
+  <li class="active">Pacotes</li>
+</ul>
+      <h1>Detalhes da onda <span id=ondalbl /></h1>
+
+      <!--<p><a href="index.htm"><i class="icon-arrow-left"></i>Voltar</a></p>-->
+
+      <h3>Pacotes contidos na onda:</h3>
+
+        <table class="table table-striped">
+          <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Descrição</th>
+                  <th>Criticidade</th>
+                  <th>Conclusão</th>
+                  <th>Escopo</th>
+                  <th>Status</th>
+                  <th>Detalhes</th>
+                </tr>
+          </thead>
+          	<tbody id="pacotes">
+            </tbody>
+        </table>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
