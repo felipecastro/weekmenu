@@ -1738,6 +1738,11 @@ function carregaMenusUser(userid){
               dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('nome')+'</a>';
               dados += '        </div>';
               dados += '      </div>';
+              dados += '      <div class="mdl-cell mdl-cell--12-col">';
+              dados += '        <div class="mdl-card__supporting-text list_title" href="'+host+'>m/'+menu.id+'">';
+              dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('desc')+'</a>';
+              dados += '        </div>';
+              dados += '      </div>';
               dados += '    </div>';
               dados += '    <div class="mdl-grid mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-grid--no-spacing mdl-color-text--grey-700">';
               dados += '      <div class="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-color-text--grey-700">';
