@@ -298,28 +298,31 @@ font-size: 4em;
 }
 
 .list_title {
-font-size: 17px;
-font-weight: 400;
+  font-size: 1.5em;
+  line-height: 1.2em;
+  font-weight: 300;
 }
 
 .list_title a {
-font-size: 110%;
-font-weight: 300;
-text-decoration: none;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  font-weight: 300;
+  text-decoration: none;
 }
 
 .list_title a:hover {
 //text-decoration: underline;
-font-weight: 400;
+//font-weight: 400;
 }
 
 .list_subtitle {
-  font-size: 12px;
-  font-weight: 300;
+  padding: 0 0 15px 25px;
 }
 
 .list_subtitle a {
+  font-weight: 300;
   text-decoration: none;
+  font-size: 1.1em;
 }
 
 .list_extra {
