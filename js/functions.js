@@ -1739,7 +1739,7 @@ function carregaMenusUser(userid){
               dados += '        </div>';
               dados += '      </div>';
               dados += '      <div class="mdl-cell mdl-cell--12-col">';
-              dados += '        <div class="mdl-card__supporting-text list_title" href="'+host+'>m/'+menu.id+'">';
+              dados += '        <div class="mdl-card__supporting-text list_subtitle" href="'+host+'>m/'+menu.id+'">';
               dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('desc')+'</a>';
               dados += '        </div>';
               dados += '      </div>';

@@ -313,6 +313,15 @@ text-decoration: none;
 font-weight: 400;
 }
 
+.list_subtitle {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.list_subtitle a {
+  text-decoration: none;
+}
+
 .list_extra {
 font-size: 12px;
 font-weight: 100;
