@@ -370,7 +370,7 @@ function addPrato() {
     prato.set("ext", false);
 
     imgDropzone.enqueueFiles(imgDropzone.getFilesWithStatus(Dropzone.ADDED));
-    prato.set("capa", "/img/prato/" + imgId + "/"+ imgDropzone.files[0].name);
+    prato.set("capa", (imgDropzone.files[0].length>0) ? "/img/prato/" + imgId + "/"+ imgDropzone.files[0].name) : "/img/assets/pratodefault.png";
 
     prato.save(null, {
         success: function(prato) {
