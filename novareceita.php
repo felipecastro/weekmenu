@@ -148,28 +148,28 @@
 </body>
 <script type="text/javascript">
 $( document ).ready(function() {
-$( "#nome" ).focus();
-});
+  
+  $( "#nome" ).focus();
+  var imgId;
+  var imgDropzone = new Dropzone("div#imgupload", {
+    url: "/imgupload.php",
+    parallelUploads: 1,
+    addRemoveLinks: true,
+    dictDefaultMessage: '<i class="material-icons" style="font-size: 35px;">image</i><br>Arraste uma imagem ou clique aqui',
+    dictRemoveFile: 'Remover',
+    autoQueue: false,
+    thumbnailWidth: 100,
+    thumbnailHeight: 100,
+    maxFiles: 1,
+    acceptedFiles: 'image/*'
 
-var imgId;
-
-var imgDropzone = new Dropzone("div#imgupload", {
-  url: "/imgupload.php",
-  parallelUploads: 1,
-  addRemoveLinks: true,
-  dictDefaultMessage: '<i class="material-icons" style="font-size: 35px;">image</i><br>Arraste uma imagem ou clique aqui',
-  dictRemoveFile: 'Remover',
-  autoQueue: false,
-  thumbnailWidth: 100,
-  thumbnailHeight: 100,
-  maxFiles: 1,
-  acceptedFiles: 'image/*'
+  });
 
 });
 
 $( "#addPrato" ).submit(function( event ) {
 
-    tinyMCE.triggerSave();
+    //tinyMCE.triggerSave();
     addPrato();
 
     event.preventDefault();

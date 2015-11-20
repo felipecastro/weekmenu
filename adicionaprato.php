@@ -99,12 +99,38 @@ include 'head.php';
 <main class="mdl-layout__content">
   <div class="page-content">
     <section class="section--center mdl-grid mdl-grid--no-spacing section-header center_menor">
-      <h3 class="font_100">Adicionar novo prato</h3>
+      <h3 class="font_100">Adicionar novo prato <span id="dados_menu"></span></h3>
     </section>
     <section class="section--center mdl-grid mdl-grid--no-spacing mdl-cell--12-col mdl-shadow--4dp" style="margin-bottom: 25px;">
+
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+        <a href="#cria-prato" class="mdl-tabs__tab is-active">Cadastrar prato</a>
+        <a href="#busca-prato" class="mdl-tabs__tab">Buscar prato</a>
+    </div>
+    <div class="mdl-tabs__panel is-active" id="cria-prato">
       <?php
       include 'formaddprato.php';
       ?>
+    </div>
+    <div class="mdl-tabs__panel" id="busca-prato">
+      <div class="mdl-card mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                <div class="mdl-card__supporting-text" style="width: inherit;">
+
+                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                      <label class="mdl-button mdl-js-button mdl-button--icon" for="b" id="btn-busca">
+                        <i class="material-icons">search</i>
+                      </label>
+                      <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" type="text" id="b">
+                        <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+                      </div>
+                    </div>
+                    <div id="pratos_result"></div>
+                  </div>
+                </div>
+    </div>
+
   </section>
   <?php
   include 'foot.php';
@@ -178,6 +204,7 @@ $( "#addPrato" ).submit(function( event ) {
 
   event.preventDefault();
 });
+
 
 function addPrato() {
 
@@ -271,8 +298,8 @@ function addPrato() {
         externa: prato.get("ext")
       });
 
+      parent.$.fancybox.close();
       $(location).attr('href','<?php echo $host ?>hoje');
-alertify.success("Prato cadastrado com sucesso!");
 
     },
     error: function(grupo, error) {

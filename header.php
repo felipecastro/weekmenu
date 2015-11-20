@@ -30,6 +30,8 @@ include 'config.php';
   <link rel="stylesheet" href="http://weekmenu.felipecastro.com.br/css/mfb.css">
 <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="http://weekmenu.felipecastro.com.br/css/alertify.css">
+<link rel="stylesheet" href="http://weekmenu.felipecastro.com.br/css/alertify.default.css">
 
   <!--[if lt IE 9]>
        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

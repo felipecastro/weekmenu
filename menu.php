@@ -88,37 +88,16 @@ include 'foot.php';
 </body>
 <script type="text/javascript">
 $( document ).ready(function() {
-  // Handler for .ready() called.
-moment.locale('pt-BR');
-mudaSaudacao();
-carregaMenu('<?php echo $_GET["id"] ?>');
-
-/*$(".abre_prato").fancybox({
-  'scrolling' : 'auto',
-  'preload'   : true,
-  'showCloseButton' : false,
-    'type'        : 'iframe'
-  });*/
-
-$(".add_prato").fancybox({
-  'scrolling' : 'auto',
-  'preload'   : true,
-  'showCloseButton' : false,
-  'type'        : 'iframe',
-  afterClose: function() {
-              carregaMenu('<?php echo $_GET["id"] ?>');
-        }
-  });
+  
+  moment.locale('pt-BR');
+  mudaSaudacao();
+  carregaMenu('<?php echo $_GET["id"] ?>');
 
 });
 
 $(".receita-card-image").click(function() {
   window.location = $(this).find("a").attr("href");
   return false;
-});
-
-$( "div.mdl-card" ).mouseover(function() {
-  $( this ).switchClass( "mdl-shadow--2dp", "mdl-shadow--4dp", 1000, "easeInOutQuad" );
 });
 
 </script>

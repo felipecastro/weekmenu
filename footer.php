@@ -18,6 +18,7 @@ include 'config.php';
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script type="text/javascript" src="http://weekmenu.felipecastro.com.br/js/material-dtp.js"></script>
+<script type="text/javascript" src="http://weekmenu.felipecastro.com.br/js/alertify.js"></script>
 
 
 <script type="text/javascript">

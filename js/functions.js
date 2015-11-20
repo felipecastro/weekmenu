@@ -260,18 +260,12 @@ function mudaSaudacao(){
 
                 var ret = '';
 
-                ret += '    <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">';
-                ret += '      <i class="material-icons">more_vert</i>';
-                ret += '    </button>';
-                ret += '    <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">';
-                ret += '      <li class="mdl-menu__item"><a href="'+host+'login">Efetuar Login</a></li>';
-                ret += '      <div class="np-drawer-separator"></div>';
-                ret += '      <li class="mdl-menu__item"><a href="'+host+'signup">Criar conta</a></li>';
-                ret += '    </ul>';
-                //console.log(ret);
+                ret += '<a class="mdl-navigation__link  mdl-layout--large-screen-only" href="'+host+'login">Login</a>';
+                ret += '<a class="mdl-navigation__link  mdl-layout--large-screen-only" href="'+host+'signup">Cadastrar</a>';
+                //ret += '<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="gotoperfil();">Cadastrar</button>';
 
-                $('#userprofile').html(ret);
-                $('#userprofile-menu').html(ret);
+                $('#nav_actions').html(ret);
+                //$('#userprofile-menu').html(ret);
 
         $('#profile_image').html('');
     } else {
@@ -287,13 +281,16 @@ function mudaSaudacao(){
 
                 var ret = '';
 
-                ret += '    <span id="profile_image">';
+                ret += '    <span id="notify">';
+                ret += '        <i class="material-icons">notifications_none</i>';
+                ret += '    </span>';
+                ret += '    <span class="mdl-navigation__link" id="profile_image">';
                 ret += '        <img width="30" heigth="30" class="img-circle" src="'+user.get("avatar")+'">';
                 ret += '    </span>';
-                ret += '    <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">';
+/*                ret += '    <button class="mdl-navigation__link android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">';
                 ret += '      <i class="material-icons">more_vert</i>';
-                ret += '    </button>';
-                ret += '    <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">';
+                ret += '    </button>';*/
+                ret += '    <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="profile_image">';
                 ret += '      <li class="mdl-menu__item">'+user.get("nomecompleto")+'</li>';
                 ret += '      <div class="wm-drawer-separator"></div>';
                 ret += '      <li class="mdl-menu__item" onclick="gotoperfil();">Perfil</li>';
@@ -301,8 +298,10 @@ function mudaSaudacao(){
                 ret += '      <li class="mdl-menu__item" onclick="desloga();">Sair</li>';
                 ret += '    </ul>';
                 //console.log(ret);
-                $('#userprofile').html(ret);
-                $('#userprofile-menu').html(ret);
+                $('#nav_actions').html(ret);
+                //$('#userprofile-menu').html(ret);
+
+                getUserNotifyCount();
 
                 woopra.identify({
                       email: user.get("email"),
@@ -348,7 +347,7 @@ function carregaTimeline(){
                           '   <h3 id="pratodesc"></h3>'+
                           ' </div>'+
                           ' <div class="mdl-card__actions home_banner_act">'+
-                          '   Amanhã <span id="pratodescnext"></span>'+
+                          '   <span class="selo_amanha">Amanhã</span><span id="pratodescnext" class="list_amanha"></span>'+
                           ' </div>'+
                           '</div>');
 
@@ -382,7 +381,7 @@ function carregaTimeline(){
             getPratos(results, getDiadaSemana(0), 'pratodesc');
             getPratos(results, getDiadaSemana(1), 'pratodescnext');
 
-            dados =  '<div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">';
+            dados =  '<div class="mdl-cell mdl-cell--12-col">';
 
             if (results.length<1){dados = '<div class="alert alert-danger" role="alert">Nenhum menu encotrado. <a href="#">Cadastar menu</a></div>'};
 
@@ -391,49 +390,84 @@ function carregaTimeline(){
               var data = results[i];
               var menu = results[i].attributes.menup;
 
-              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list">';
+              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list mdl-shadow--2dp">';
               dados += '    <div class="mdl-grid mdl-grid--no-spacing mdl-cell--9-col-desktop mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-color-text--grey-700">';
-              dados += '      <div class="mdl-cell mdl-cell--1-col">';
-              dados += '        <div class="mdl-card__supporting-text" style="padding: 10px;">';
-              dados += '          <span id="avatar_'+menu.id+'" style="padding-left: 10px;"><img width="25" heigth="25" class="img-circle" src="img/assets/user.png"></span>';
-              dados += '        </div>';
-              dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--8-col">';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
               dados += '        <div class="mdl-card__supporting-text list_title" href="'+host+'>m/'+menu.id+'">';
               dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('nome')+'</a>';
               dados += '        </div>';
               dados += '      </div>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--1-col">';
+              dados += '          <div class="mdl-card__supporting-text" style="padding: 0 0 20px 10px;">';
+              dados += '            <span id="avatar_'+menu.id+'" style="padding-left: 10px;"><img width="25" heigth="25" class="img-circle" src="img/assets/user.png"></span>';
+              dados += '          </div>';
+              dados += '        </div>';
+              dados += '        <div class="mdl-cell mdl-cell--11-col">';
+              dados += '          <div class="mdl-card__supporting-text list_subtitle" href="'+host+'>m/'+menu.id+'">';
+              dados += '            <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('desc')+'</a>';
+              dados += '          </div>';
+              dados += '        </div>';
+              dados += '      </div>';
               dados += '    </div>';
               dados += '    <div class="mdl-grid mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-grid--no-spacing mdl-color-text--grey-700">';
-              dados += '      <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-color-text--grey-700">';
-              dados += '        <div class="mdl-card__supporting-text list_extra">';
-              dados += '          <span>iniciado a '+moment(data.get('dtinicio')).toNow(true)+'</span>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--11-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
+              dados += '          <div class="mdl-card__supporting-text list_extra_home">';
+              //dados += '            <span id="dadosextras_'+menu.id+'"></span>';
+              dados += '          <div class="meta__favorites mdl-color-text--grey-600" id="menu_action_'+menu.id+'">';
+              dados += '            <b id="menu_pratos_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">restaurant_menu</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_pratos_'+menu.id+'">Pratos no menu</div>';
+              dados += '            <span class="visuallyhidden">pratos</span>';
+              dados += '            <b id="menu_likes_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">favorite</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_likes_'+menu.id+'">Curtidas</div>';
+              dados += '            <span class="visuallyhidden">likes</span>';
+              dados += '            <b id="menu_agenda_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">event</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_agenda_'+menu.id+'">Agendamentos para este menu</div>';
+              dados += '            <span class="visuallyhidden">agendamentos</span>';
+              dados += '          </div>';
+              dados += '          </div>';
               dados += '        </div>';
-              dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
-              dados += '        <div class="mdl-card__supporting-text list_extra">';
-              dados += '          <span id="dadosextras_'+menu.id+'"></span>';
+              dados += '        <div class="mdl-cell mdl-cell--1-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
+              dados += '          <button id="list_atual_act_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 12px;right: 24px;">';
+              dados += '            <i class="material-icons">more_vert</i>';
+              dados += '          </button>';
               dados += '        </div>';
+              dados += '        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="list_atual_act_'+menu.id+'">';
+              dados += '          <li class="mdl-menu__item"><a href="'+host+'m/'+menu.id+'">Detalhes</a></li>';
+              dados += '          <li class="mdl-menu__item" menu_id_="'+menu.id+'"><span id="calendar_trigger_1">Agendar nova data</span></li>';
+              dados += '        </ul>';
               dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
-              dados += '        <button id="list_action_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 9px;right: 5px;">';
-              dados += '          <i class="material-icons">more_vert</i>';
-              dados += '        </button>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--12-col mdl-color-text--grey-700">';
+              dados += '          <div class="mdl-card__supporting-text list_extra">';
+              dados += '            <span class="label-programacao label-present">iniciado a '+moment(data.get('dtinicio')).toNow(true)+'</span>';
+              dados += '          </div>';
+              dados += '        </div>';
               dados += '      </div>';
               dados += '    </div>';
-              dados += '    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="list_action_'+menu.id+'">';
-              dados += '      <li class="mdl-menu__item"><a href="'+host+'m/'+menu.id+'">Detalhes</a></li>';
-              dados += '      <li class="mdl-menu__item"><a href="'+host+'agendar/menu/'+menu.id+'">Agendar nova data</a></li>';
-              dados += '    </ul>';
               dados += '  </div>';
 
               getDadosExtraMenu(menu.id);
+              getDadosExtraMenuPerfil(menu.id);
 
             }
 
             dados += '</div>';
 
             $('#menusativos').html(dados);
+
+            $('#calendar_trigger_1').bootstrapMaterialDatePicker({
+                    time: false,
+                    format: 'DD/MM/YYYY',
+                    lang: 'pt-BR',
+                    weekStart: 1,
+                    cancelText : 'Cancelar'
+              }).on('change', function(e, date)
+                {
+                  //alert($(this).closest('li').attr('menu_id_'));
+                  programaMenu($(this).closest('li').attr('menu_id_'), date);
+                });
 
         } else {$('#menusativos').html('<div class="alert alert-danger" role="alert">Nenhum menu encotrado. <a href="#">Cadastar menu</a></div>')};
 
@@ -463,7 +497,7 @@ function carregaTimeline(){
 
             //console.log(results);
 
-            dados =  '<div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">';
+            dados =  '<div class="mdl-cell mdl-cell--12-col">';
 
             if (results.length<1){dados = '<div class="alert alert-danger" role="alert">Nenhum menu encotrado. <a href="#">Cadastar menu</a></div>'};
 
@@ -472,48 +506,83 @@ function carregaTimeline(){
               var data = results[i];
               var menu = results[i].attributes.menup;
 
-              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list">';
+              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list mdl-shadow--2dp">';
               dados += '    <div class="mdl-grid mdl-grid--no-spacing mdl-cell--9-col-desktop mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-color-text--grey-700">';
-              dados += '      <div class="mdl-cell mdl-cell--1-col">';
-              dados += '        <div class="mdl-card__supporting-text" style="padding: 10px;">';
-              dados += '          <span id="avatar_'+menu.id+'" style="padding-left: 10px;"><img width="25" heigth="25" class="img-circle" src="img/assets/user.png"></span>';
-              dados += '        </div>';
-              dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--8-col">';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
               dados += '        <div class="mdl-card__supporting-text list_title" href="'+host+'>m/'+menu.id+'">';
               dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('nome')+'</a>';
               dados += '        </div>';
               dados += '      </div>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--1-col">';
+              dados += '          <div class="mdl-card__supporting-text" style="padding: 0 0 20px 10px;">';
+              dados += '            <span id="avatar_'+menu.id+'" style="padding-left: 10px;"><img width="25" heigth="25" class="img-circle" src="img/assets/user.png"></span>';
+              dados += '          </div>';
+              dados += '        </div>';
+              dados += '        <div class="mdl-cell mdl-cell--11-col">';
+              dados += '          <div class="mdl-card__supporting-text list_subtitle" href="'+host+'>m/'+menu.id+'">';
+              dados += '            <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('desc')+'</a>';
+              dados += '          </div>';
+              dados += '        </div>';
+              dados += '      </div>';
               dados += '    </div>';
               dados += '    <div class="mdl-grid mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-grid--no-spacing mdl-color-text--grey-700">';
-              dados += '      <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-color-text--grey-700">';
-              dados += '        <div class="mdl-card__supporting-text list_extra">';
-              dados += '          <span>daqui a '+moment(data.get('dtinicio')).fromNow(true)+'</span>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--11-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
+              dados += '          <div class="mdl-card__supporting-text list_extra_home">';
+              //dados += '            <span id="dadosextras_'+menu.id+'"></span>';
+              dados += '          <div class="meta__favorites mdl-color-text--grey-600" id="menu_action_'+menu.id+'">';
+              dados += '            <b id="menu_pratos_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">restaurant_menu</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_pratos_'+menu.id+'">Pratos no menu</div>';
+              dados += '            <span class="visuallyhidden">pratos</span>';
+              dados += '            <b id="menu_likes_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">favorite</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_likes_'+menu.id+'">Curtidas</div>';
+              dados += '            <span class="visuallyhidden">likes</span>';
+              dados += '            <b id="menu_agenda_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">event</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_agenda_'+menu.id+'">Agendamentos para este menu</div>';
+              dados += '            <span class="visuallyhidden">agendamentos</span>';
+              dados += '          </div>';
+              dados += '          </div>';
               dados += '        </div>';
-              dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
-              dados += '        <div class="mdl-card__supporting-text list_extra">';
-              dados += '          <span id="dadosextras_'+menu.id+'"></span>';
+              dados += '        <div class="mdl-cell mdl-cell--1-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
+              dados += '          <button id="list_prox_act_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 12px;right: 24px;">';
+              dados += '            <i class="material-icons">more_vert</i>';
+              dados += '          </button>';
               dados += '        </div>';
+              dados += '        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="list_prox_act_'+menu.id+'">';
+              dados += '          <li class="mdl-menu__item"><a href="'+host+'m/'+menu.id+'">Detalhes</a></li>';
+              dados += '          <li class="mdl-menu__item" menu_id_="'+menu.id+'"><span id="calendar_trigger_2">Agendar nova data</span></li>';
+              dados += '        </ul>';
               dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
-              dados += '        <button id="list_action_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 9px;right: 5px;">';
-              dados += '          <i class="material-icons">more_vert</i>';
-              dados += '        </button>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--12-col mdl-color-text--grey-700">';
+              dados += '          <div class="mdl-card__supporting-text list_extra">';
+              dados += '            <span class="label-programacao label-future">inicia daqui a '+moment(data.get('dtinicio')).fromNow(true)+'</span>';
+              dados += '          </div>';
+              dados += '        </div>';
               dados += '      </div>';
               dados += '    </div>';
-              dados += '    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="list_action_'+menu.id+'">';
-              dados += '      <li class="mdl-menu__item"><a href="'+host+'m/'+menu.id+'">Detalhes</a></li>';
-              dados += '      <li class="mdl-menu__item"><a href="'+host+'agendar/menu/'+menu.id+'">Agendar nova data</a></li>';
-              dados += '    </ul>';
               dados += '  </div>';
 
               getDadosExtraMenu(menu.id);
+              getDadosExtraMenuPerfil(menu.id);
             }
 
             dados += '</div>';
 
             $('#menusproximos').html(dados);
+
+            $('#calendar_trigger_2').bootstrapMaterialDatePicker({
+                    time: false,
+                    format: 'DD/MM/YYYY',
+                    lang: 'pt-BR',
+                    weekStart: 1,
+                    cancelText : 'Cancelar'
+              }).on('change', function(e, date)
+                {
+                  //alert($(this).closest('li').attr('menu_id_'));
+                  programaMenu($(this).closest('li').attr('menu_id_'), date);
+                });
 
         },
         error: function(object, error) {
@@ -540,7 +609,7 @@ function carregaTimeline(){
 
             //console.log(results);
 
-            dados =  '<div class="mdl-cell mdl-cell--12-col mdl-shadow--4dp">';
+            dados =  '<div class="mdl-cell mdl-cell--12-col">';
 
             if (results.length<1){dados = '<div class="alert alert-danger" role="alert">Nenhum menu encotrado. <a href="#">Cadastar menu</a></div>'};
 
@@ -549,48 +618,83 @@ function carregaTimeline(){
               var data = results[i];
               var menu = results[i].attributes.menup;
 
-              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list">';
+              dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list mdl-shadow--2dp">';
               dados += '    <div class="mdl-grid mdl-grid--no-spacing mdl-cell--9-col-desktop mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-color-text--grey-700">';
-              dados += '      <div class="mdl-cell mdl-cell--1-col">';
-              dados += '        <div class="mdl-card__supporting-text" style="padding: 10px;">';
-              dados += '          <span id="avatar_'+menu.id+'" style="padding-left: 10px;"><img width="25" heigth="25" class="img-circle" src="img/assets/user.png"></span>';
-              dados += '        </div>';
-              dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--8-col">';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
               dados += '        <div class="mdl-card__supporting-text list_title" href="'+host+'>m/'+menu.id+'">';
               dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('nome')+'</a>';
               dados += '        </div>';
               dados += '      </div>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--1-col">';
+              dados += '          <div class="mdl-card__supporting-text" style="padding: 0 0 20px 10px;">';
+              dados += '            <span id="avatar_'+menu.id+'" style="padding-left: 10px;"><img width="25" heigth="25" class="img-circle" src="img/assets/user.png"></span>';
+              dados += '          </div>';
+              dados += '        </div>';
+              dados += '        <div class="mdl-cell mdl-cell--11-col">';
+              dados += '          <div class="mdl-card__supporting-text list_subtitle" href="'+host+'>m/'+menu.id+'">';
+              dados += '            <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('desc')+'</a>';
+              dados += '          </div>';
+              dados += '        </div>';
+              dados += '      </div>';
               dados += '    </div>';
               dados += '    <div class="mdl-grid mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-grid--no-spacing mdl-color-text--grey-700">';
-              dados += '      <div class="mdl-cell mdl-cell--7-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-color-text--grey-700">';
-              dados += '        <div class="mdl-card__supporting-text list_extra">';
-              dados += '          <span>fechou a '+moment(data.get('dtinicio')).toNow(true)+'</span>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--11-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
+              dados += '          <div class="mdl-card__supporting-text list_extra_home">';
+              //dados += '            <span id="dadosextras_'+menu.id+'"></span>';
+              dados += '          <div class="meta__favorites mdl-color-text--grey-600" id="menu_action_'+menu.id+'">';
+              dados += '            <b id="menu_pratos_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">restaurant_menu</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_pratos_'+menu.id+'">Pratos no menu</div>';
+              dados += '            <span class="visuallyhidden">pratos</span>';
+              dados += '            <b id="menu_likes_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">favorite</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_likes_'+menu.id+'">Curtidas</div>';
+              dados += '            <span class="visuallyhidden">likes</span>';
+              dados += '            <b id="menu_agenda_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">event</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_agenda_'+menu.id+'">Agendamentos para este menu</div>';
+              dados += '            <span class="visuallyhidden">agendamentos</span>';
+              dados += '          </div>';
+              dados += '          </div>';
               dados += '        </div>';
-              dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
-              dados += '        <div class="mdl-card__supporting-text list_extra">';
-              dados += '          <span id="dadosextras_'+menu.id+'"></span>';
+              dados += '        <div class="mdl-cell mdl-cell--1-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
+              dados += '          <button id="list_past_act_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 12px;right: 24px;">';
+              dados += '            <i class="material-icons">more_vert</i>';
+              dados += '          </button>';
               dados += '        </div>';
+              dados += '        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="list_past_act_'+menu.id+'">';
+              dados += '          <li class="mdl-menu__item"><a href="'+host+'m/'+menu.id+'">Detalhes</a></li>';
+              dados += '          <li class="mdl-menu__item" menu_id_="'+menu.id+'"><span id="calendar_trigger_3">Agendar nova data</span></li>';
+              dados += '        </ul>';
               dados += '      </div>';
-              dados += '      <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
-              dados += '        <button id="list_action_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 9px;right: 5px;">';
-              dados += '          <i class="material-icons">more_vert</i>';
-              dados += '        </button>';
+              dados += '      <div class="mdl-grid mdl-grid--no-spacing mdl-cell--12-col">';
+              dados += '        <div class="mdl-cell mdl-cell--12-col mdl-color-text--grey-700">';
+              dados += '          <div class="mdl-card__supporting-text list_extra">';
+              dados += '            <span class="label-programacao label-past">encerrado a '+moment(data.get('dtinicio')).toNow(true)+'</span>';
+              dados += '          </div>';
+              dados += '        </div>';
               dados += '      </div>';
               dados += '    </div>';
-              dados += '    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="list_action_'+menu.id+'">';
-              dados += '      <li class="mdl-menu__item"><a href="'+host+'m/'+menu.id+'">Detalhes</a></li>';
-              dados += '      <li class="mdl-menu__item"><a href="'+host+'agendar/menu/'+menu.id+'">Agendar nova data</a></li>';
-              dados += '    </ul>';
               dados += '  </div>';
 
               getDadosExtraMenu(menu.id);
+              getDadosExtraMenuPerfil(menu.id);
             }
 
             dados += '</div>';
 
             $('#menusanteriores').html(dados);
+
+            $('#calendar_trigger_3').bootstrapMaterialDatePicker({
+                    time: false,
+                    format: 'DD/MM/YYYY',
+                    lang: 'pt-BR',
+                    weekStart: 1,
+                    cancelText : 'Cancelar'
+              }).on('change', function(e, date)
+                {
+                  //alert($(this).closest('li').attr('menu_id_'));
+                  programaMenu($(this).closest('li').attr('menu_id_'), date);
+                });
 
         },
         error: function(object, error) {
@@ -600,7 +704,7 @@ function carregaTimeline(){
         }
       });
 
-      var MenusNP = Parse.Object.extend("menu");
+      /*var MenusNP = Parse.Object.extend("menu");
       var queryMNP = new Parse.Query(MenusNP);
       queryMNP.equalTo("owner", Parse.User.current().id);
       queryMNP.equalTo("ativo", true);
@@ -672,9 +776,9 @@ function carregaTimeline(){
           // error is a Parse.Error with an error code and message.
             console.log("Erro: " + error.message);
         }
-      });
+      });*/
 
-    carregaEventos();
+    /*carregaEventos();
 
     var btn_add = '<button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent btn-add btn-add-menu" data-upgraded=",MaterialButton,MaterialRipple">'+
                             '<i class="material-icons mdl-color-text--white" role="presentation">add</i>'+
@@ -687,11 +791,11 @@ function carregaTimeline(){
 
     $('.btn-add-menu').click(function(){
         $(location).attr('href',host+'menu/novo');
-      });
+      });*/
 
   } else {
 
-    $(location).attr('href',host + 'sobre/comofaz');
+    $(location).attr('href',host + 'login');
   }
 
 }
@@ -802,50 +906,8 @@ function getParameterByName( name ){
 function getDadosExtraMenu(menu){
 
   var menuid = menu;
-  //console.log(menuid);
-  var el = '#dadosextras_'+menuid;
   var elimg = '#avatar_'+menuid;
-  var ret = '';
   var retimg = '';
-  //console.log(el);
-
-  var PM = Parse.Object.extend("diamenu");
-  var query = new Parse.Query(PM);
-  query.equalTo("ativo", true);
-  query.equalTo("menu", menuid);
-  query.include("pratop");
-
-  query.find({
-    success: function(results) {
-
-      ret = '<div id="qtd_pratos_'+menuid+'" class="material-icons mdl-badge" data-badge="'+results.length+'" style="top: -4px;"></div>';
-      ret += '<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="qtd_pratos_'+menuid+'">';
-      //ret += '<div class="mdl-tooltip" for="qtd_pratos_'+menuid+'"><ul class="mdl-menu">';
-
-      if (results.length > 0){
-
-
-        for (var i = 0; i < results.length; i++) {
-
-          var prato = results[i].attributes.pratop;
-
-          if (prato) {ret += ' <li class="mdl-menu__item"><a class="abre_prato iframe" href="'+host+'p/'+prato.id+'">'+prato.get('nome')+'</a></li>';};
-        };
-
-      } else {
-
-        ret += ' <li class="mdl-menu__item"><a href="'+host+'m/'+menuid+'">Adicionar prato</a></li>';
-
-      }
-
-      ret += '</ul>';
-
-      $(el).html(ret);
-    },
-    error: function(error) {
-      $(el).html('nenhum prato ');
-    }
-  });
 
   var PI = Parse.Object.extend("menu");
   var queryImg = new Parse.Query(PI);
@@ -864,6 +926,101 @@ function getDadosExtraMenu(menu){
       console.log(error);
     }
   });
+}
+
+function getDadosExtraMenuPerfil(menu){
+
+  var menuid = menu;
+  //console.log(menuid);
+  var ellike = '#menu_like_'+menuid;
+  var elagenda = '#menu_agenda_'+menuid;
+  var eprato = '#menu_pratos_'+menuid;
+
+  var Prato = Parse.Object.extend("diamenu");
+  var query = new Parse.Query(Prato);
+  query.equalTo("ativo", true);
+  query.equalTo("menu", menuid);
+  //query.include("pratop");
+
+  query.count({
+    success: function(count) {
+      //console.log(count);
+      //console.log(elagenda);
+      $(eprato).html(count);
+    },
+    error: function(error) {
+      //agenda = 0;
+    }
+  });
+
+  var Agenda = Parse.Object.extend("menudatas");
+  var querya = new Parse.Query(Agenda);
+  querya.equalTo("ativo", true);
+  querya.equalTo("menu", menuid);
+  //query.include("pratop");
+
+  querya.count({
+    success: function(count) {
+      //console.log(count);
+      //console.log(elagenda);
+      $(elagenda).html(count);
+    },
+    error: function(error) {
+      //agenda = 0;
+    }
+  });
+
+  var Like = Parse.Object.extend("menu_like");
+  var queryl = new Parse.Query(Like);
+  queryl.equalTo("ativo", true);
+  queryl.equalTo("menu", menuid);
+  //query.include("pratop");
+
+  queryl.count({
+    success: function(count) {
+      $(ellike).html(count);
+    },
+    error: function(error) {
+      //like = 0;
+    }
+  });
+
+}
+
+function getDadosExtraPratoPerfil(prato){
+
+  var pratoid = prato;
+  var ellike = '#prato_like_'+pratoid;
+  var elagenda = '#prato_agenda_'+pratoid;
+
+  var Prato = Parse.Object.extend("diamenu");
+  var query = new Parse.Query(Prato);
+  query.equalTo("ativo", true);
+  query.equalTo("prato", pratoid);
+
+  query.count({
+    success: function(count) {
+      $(eprato).html(count);
+    },
+    error: function(error) {
+      //agenda = 0;
+    }
+  });
+
+  var Like = Parse.Object.extend("prato_like");
+  var queryl = new Parse.Query(Like);
+  queryl.equalTo("ativo", true);
+  queryl.equalTo("prato", pratoid);
+
+  queryl.count({
+    success: function(count) {
+      $(ellike).html(count);
+    },
+    error: function(error) {
+      //like = 0;
+    }
+  });
+
 }
 
 function getDadosExtraMenuTL(menu){
@@ -982,7 +1139,18 @@ console.log(dt);*/
 
         dados += '</div>';
         dados += '<div class="mdl-card__actions menu_header_actions">';
-        dados += '<div><img width="25" heigth="25" class="img-circle img_avatar_menu" src="'+dono.get('avatar')+'"><span class="menu_head_extra"> '+dono.get('nomecompleto')+'</span></div><div class="mdl-layout-spacer"></div><div><span class="menu_head_extra menu_head_extra_tempo">criado a '+moment(menu.createdAt).toNow(true)+'</span></div>';
+        dados += '  <div>';
+        dados += '   <img width="25" heigth="25" class="img-circle img_avatar_menu" src="'+dono.get('avatar')+'">';
+        dados += '   <span class="menu_head_extra"> '+dono.get('nomecompleto')+'</span>';
+        dados += '  </div>';
+        dados += '  <div class="mdl-layout-spacer"></div>';
+        dados += '  <div>';
+        dados += '   <span id="menu_likes_'+menu.id+'">0</span> ';
+        dados += '   <i class="material-icons icon_stats" role="presentation" style="font-size: 15px;" onclick="tooglefav(\''+menu.id+'\')" id="like_btn_">favorite_border</i>';
+        dados += '   <div class="mdl-tooltip" for="menu_likes_'+menu.id+'">Curtidas</div>';
+        dados += '    <span class="visuallyhidden">likes</span>';
+        dados += '    <span class="menu_head_extra menu_head_extra_tempo">criado a '+moment(menu.createdAt).toNow(true)+'</span>';
+        dados += '  </div>';
         dados += '</div>';
         dados += '</div>';
         dados += '</section>';
@@ -1011,7 +1179,7 @@ console.log(dt);*/
           dados_dia += '<div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">';
           dados_dia += '  <div class="mdl-card mdl-shadow--2dp wm-card-event">';
           dados_dia += '    <div class="mdl-card__title mdl-card--expand">';
-          dados_dia += '      <a class="actions_link iframe add_prato" id="add_prato" href="'+host+'prato/novo/'+menu.id+'/'+i+'"> ';
+          dados_dia += '      <a class="actions_link" id="add_prato" href="'+host+'prato/novo/'+menu.id+'/'+i+'"> ';
           dados_dia += '        <h4 class="actions">';
           dados_dia += '          <i class="material-icons actions">add</i>';
           dados_dia += '          <br>';
@@ -1038,6 +1206,7 @@ console.log(dt);*/
 
         //$('#diasmenu').html(dados_dia);
         $('#conteudo').html(dados);
+        countMenuLikes(menu.id);
 
         for (var t = 1; t < diassemana.length+1; t++) {
 
@@ -1090,7 +1259,7 @@ console.log(dt);*/
                   ret += '<div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">';
                   ret += '  <div class="mdl-card mdl-shadow--2dp wm-card-event">';
                   ret += '    <div class="mdl-card__title mdl-card--expand">';
-                  ret += '      <a class="actions_link iframe add_prato" id="add_prato" href="'+host+'prato/novo/'+menu.id+'/'+(dias[0].attributes.iddia)+'"> ';
+                  ret += '      <a class="actions_link" id="add_prato" href="'+host+'prato/novo/'+menu.id+'/'+(dias[0].attributes.iddia)+'"> ';
                   ret += '        <h4 class="actions">';
                   ret += '          <i class="material-icons actions">add</i>';
                   ret += '          <br>';
@@ -1549,7 +1718,7 @@ function parsePratoBusca(results) {
       dados += '    </div>';
       dados += '    <div class="mdl-cell mdl-cell--2-col mdl-color-text--grey-700">';
       dados += '        <div class="mdl-card__supporting-text list_extra_busca_add">';
-      dados += '          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="addPrato(\'' +prato.id+'\');">';
+      dados += '          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="vincPrato(\'' +prato.id+'\');">';
       dados += '            Adicionar ao menu';
       dados += '          </button>';
       dados += '        </div>';
@@ -1732,7 +1901,7 @@ function carregaMenusUser(userid){
               var menu = results[i];
 
               dados += '  <div class="mdl-grid mdl-grid--no-spacing menus_list  mdl-shadow--2dp">';
-              dados += '    <div class="mdl-grid mdl-grid--no-spacing mdl-cell--9-col-desktop mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-color-text--grey-700">';
+              dados += '    <div class="mdl-grid mdl-grid--no-spacing mdl-cell--8-col-desktop mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-color-text--grey-700">';
               dados += '      <div class="mdl-cell mdl-cell--12-col">';
               dados += '        <div class="mdl-card__supporting-text list_title" href="'+host+'>m/'+menu.id+'">';
               dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('nome')+'</a>';
@@ -1740,18 +1909,35 @@ function carregaMenusUser(userid){
               dados += '      </div>';
               dados += '      <div class="mdl-cell mdl-cell--12-col">';
               dados += '        <div class="mdl-card__supporting-text list_subtitle" href="'+host+'>m/'+menu.id+'">';
-              dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+menu.get('desc')+'</a>';
+              dados += '          <a href="'+host+'m/'+menu.id+'" class="mdl-color-text--grey-600">'+(menu.get('desc') !== 'undefined') ? menu.get('desc') : 'Menu sem descrição' +'</a>';
               dados += '        </div>';
               dados += '      </div>';
               dados += '    </div>';
-              dados += '    <div class="mdl-grid mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-grid--no-spacing mdl-color-text--grey-700">';
-              dados += '      <div class="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone mdl-color-text--grey-700">';
+              dados += '    <div class="mdl-grid mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--3-col-phone mdl-grid--no-spacing mdl-color-text--grey-700">';
+              dados += '      <div class="mdl-cell mdl-cell--12-col">';
+              dados += '        <div class="mdl-card__supporting-text mdl-color-text--grey-600 list_extra">';
+              dados += '          <div class="meta__favorites mdl-color-text--grey-600" id="menu_action_'+menu.id+'">';
+              dados += '            <b id="menu_pratos_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">restaurant_menu</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_pratos_'+menu.id+'">Pratos no menu</div>';
+              dados += '            <span class="visuallyhidden">pratos</span>';
+              dados += '            <b id="menu_likes_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">favorite</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_likes_'+menu.id+'">Curtidas</div>';
+              dados += '            <span class="visuallyhidden">likes</span>';
+              dados += '            <b id="menu_agenda_'+menu.id+'">0</b> <i class="material-icons icon_stats" role="presentation">event</i>';
+              dados += '            <div class="mdl-tooltip" for="menu_agenda_'+menu.id+'">Agendamentos para este menu</div>';
+              dados += '            <span class="visuallyhidden">agendamentos</span>';
+              dados += '          </div>';
+              dados += '        </div>';
+              dados += '      </div>';
+              dados += '      <div class="mdl-cell mdl-cell--12-col">';
               dados += '        <div class="mdl-card__supporting-text list_extra">';
               dados += '          <span>criado a '+moment(menu.createdAt).toNow(true)+'</span>';
               dados += '        </div>';
               dados += '      </div>';
+              dados += '    </div>';
+              dados += '    <div class="mdl-grid mdl-cell--1-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-grid--no-spacing mdl-color-text--grey-700">';
               dados += '      <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--4-col-tablet mdl-cell--1-col-phone mdl-color-text--grey-700">';
-              dados += '        <button id="list_action_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 9px;right: 5px;">';
+              dados += '        <button id="list_action_'+menu.id+'" class="mdl-button mdl-js-button mdl-button--icon" style="top: 9px;right: -20px;">';
               dados += '          <i class="material-icons">more_vert</i>';
               dados += '        </button>';
               dados += '      </div>';
@@ -1762,7 +1948,7 @@ function carregaMenusUser(userid){
               dados += '    </ul>';
               dados += '  </div>';
 
-              //getDadosExtraMenu(menu.id);
+              getDadosExtraMenuPerfil(menu.id);
             }
 
             dados += '</div>';
@@ -1838,11 +2024,14 @@ function carregaPratosUser(userid){
                 dados += '<div id="card_prato_'+prato.id+'" class="receita-card-image mdl-card mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--12-col-phone mdl-shadow--4dp" style="background: url('+img+') center / cover !important;">'+
                           ' <div class="mdl-card__title mdl-card--expand"></div>'+
                           ' <div class="mdl-card__actions">'+
-                          '   <span class="receita-card-image__filename">'+url+prato.get("nome")+'</a></span>'+
+                          '   <span class="receita-card-image__filename">'+url+prato.get("nome")+'</a></span><br>'+
+                          '   <span class="receita-card-image__filename"><b id="prato_like_'+prato.id+'">0</b> <i class="material-icons icon_stats" role="presentation">favorite</i>'+
+                          '   <b id="prato_agenda_'+prato.id+'">0</b> <i class="material-icons icon_stats" role="presentation">event</i></span>'+
                           ' </div>'+
                           '</div>';
 
                 //getDadosExtraMenu(menu.id);
+                getDadosExtraPratoPerfil(prato.id);
               }
 
               dados += '</div>';
@@ -2055,5 +2244,225 @@ function addLinkPlaceholder(texto, link) {
   ret += '  </div></div>';
 
   return ret;
+
+}
+
+function programaMenu(menuid, data) {
+
+  if (Parse.User.current()) {
+
+    var Agendamento = Parse.Object.extend("menudatas");
+    var agendamento = new Agendamento();
+
+    var dataparse = moment(data, "DD-MM-YYYY");
+
+    agendamento.set("ativo", true);
+    agendamento.set("menu", menuid);
+    agendamento.set("dtinicio", dataparse.toDate());
+    agendamento.set("dtfim", moment(dataparse).add(6, 'days').toDate());
+    agendamento.set("menup", { "__type": "Pointer", "className": "menu", "objectId": menuid });
+    agendamento.set("user", Parse.User.current().id);
+    agendamento.set("userp", { "__type": "Pointer", "className": "_User", "objectId": Parse.User.current().id });
+
+    agendamento.save(null, {
+      success: function(gameScore) {
+        // Execute any logic that should take place after the object is saved.
+        alert('New object created with objectId: ' + agendamento.id);
+      },
+      error: function(gameScore, error) {
+        // Execute any logic that should take place if the save fails.
+        // error is a Parse.Error with an error code and message.
+        alert('Failed to create new object, with error code: ' + error.message);
+      }
+    });
+  }
+
+}
+
+function getUserNotify(){
+
+  if (Parse.User.current()) {
+
+
+    var Notify = Parse.Object.extend("notificacao");
+    var query = new Parse.Query(Notify);
+
+      query.equalTo("ativo", true);
+      query.equalTo("lido", false);
+      query.equalTo("recipient", Parse.User.current().id);
+
+      query.find({
+        success: function(results) {
+
+          var user = results[0];
+
+          (user.get('avatar')) ? $('#avatar_container').html('<img width="75" heigth="75" class="img-circle_profile img_avatar_profile" src="'+user.get('avatar')+'">') : $('#avatar_container').html('<img width="75" heigth="75" class="img-circle_profile img_avatar_profile" src="http://weekmenu.felipecastro.com.br/img/assets/user.png">');
+          (user.get('nomecompleto')) ? $('#nome_container').html('<h2 class="lbl_nome animated pulse">'+user.get('nomecompleto')+'</h2>') : $('#nome_container').html('<h2 class="lbl_nome">Usuário não encontrado</h2>');
+
+          var ret = "";
+          ret += (user.get('email')) ? '<li class="font_100 icon ion-android-mail animated pulse"> '+user.get('email')+'</li>' : '';
+          ret += (user.get('blog')) ? '<li class="font_100 icon ion-android-compass animated pulse"> '+user.get('blog')+'</li>' : '';
+          ret += (user.get('facebookid')) ? '<li class="font_100 icon ion-social-facebook animated pulse"> logado via facebook</li>' : '';
+          if (ret.length>1) {$('#list_det_profile').html(ret);}
+
+          $('#menu_options').html('<li class="mdl-menu__item">Editar</li>');
+
+          ret = '      <div>';
+          ret += '        <span class="menu_head_extra">17 Menus</span>';
+          ret += '      </div>';
+          ret += '      <div class="mdl-layout-spacer"></div>';
+          ret += '      <div>';
+          ret += '        <span class="menu_head_extra menu_head_extra_tempo">cadastrado a '+moment(user.createdAt).toNow(true)+'</span>';
+          ret += '      </div>';
+          ret += '    </div>';
+
+          $('#menu_header_actions').html(ret);
+
+          carregaMenusUser(user.id);
+          carregaPratosUser(user.id);
+          carregaColecoesUser(user.id);
+        },
+
+        error: function(object, error) {
+        }
+      });
+  }
+}
+
+function getUserNotifyCount(){
+
+  if (Parse.User.current()) {
+
+
+    var Notify = Parse.Object.extend("notificacao");
+    var query = new Parse.Query(Notify);
+
+    query.equalTo("ativo", true);
+    query.equalTo("lido", false);
+    query.equalTo("recipient", Parse.User.current().id);
+
+    query.count({
+      success: function(count) {
+
+        return $('#notify').html((count > 0) ? '<span class="material-icons mdl-badge" data-badge="'+count+'"><i class="material-icons">notifications</i></span>' : '<i class="material-icons">notifications_none</i>');
+
+      },
+
+      error: function(object, error) {
+      }
+    });
+  }
+}
+
+function getDescMenuDia(idmenu, iddia, el) {
+
+  if (Parse.User.current()) {
+
+    var diassemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+
+    var Menu = Parse.Object.extend("menu");
+    var query = new Parse.Query(Menu);
+
+    query.get(idmenu, {
+
+      success: function(menu) {
+
+        var ret = '- '+diassemana[iddia]+' no menu '+menu.get('nome');
+
+        $('#'+el).html(ret);
+      },
+      error: function(error) {
+        console.log("Error: " + error.code + " " + error.message);
+
+      }
+    });
+  }
+
+}
+
+function countMenuLikes(menuid){
+
+  var Like = Parse.Object.extend("menu_like");
+  var queryl = new Parse.Query(Like);
+  queryl.equalTo("ativo", true);
+  queryl.equalTo("menu", menuid);
+  //query.include("pratop");
+
+  queryl.count({
+    success: function(count) {
+      $('#menu_likes_'+menuid).html(count);
+    },
+    error: function(error) {
+      //like = 0;
+    }
+  });
+
+  queryl.equalTo("user", Parse.User.current().id);
+  
+  queryl.count({
+    success: function(count) {
+      $('#like_btn_').html((count > 0) ? 'favorite' : 'favorite_border');
+    },
+    error: function(error) {
+      //like = 0;
+    }
+  });
+}
+
+function tooglefav(menuid){
+
+  if (Parse.User.current()) {
+
+      var Like = Parse.Object.extend("menu_like");
+      var queryl = new Parse.Query(Like);
+      //queryl.equalTo("ativo", true);
+      queryl.equalTo("menu", menuid);
+      queryl.equalTo("user", Parse.User.current().id);
+
+      queryl.find({
+        success: function(results) {
+          console.log(results);
+          
+          if (results.length > 0) {
+
+            var like = results[0];
+
+              like.set("ativo", !like.attributes.ativo);
+              like.save(null, {
+                success: function(object) {
+                  // Execute any logic that should take place after the object is saved.
+                  countMenuLikes(menuid);
+                },
+                error: function(object, error) {
+                  console.log('erro ao atualizar: ' + error.message);
+                }
+              });
+          } else {
+
+            var novolike = new Like();
+
+            novolike.set("menu", menuid);
+            novolike.set("menup", { "__type": "Pointer", "className": "menu", "objectId": menuid });
+            novolike.set("user", Parse.User.current().id);
+            novolike.set("userp", { "__type": "Pointer", "className": "_User", "objectId": Parse.User.current().id });
+            novolike.set("ativo", true);
+
+            novolike.save(null, {
+              success: function(like) {
+
+                countMenuLikes(menuid);
+              },
+              error: function(grupo, error) {
+                console.log('Ocorreu um erro: ' + error.message);
+              }
+            });
+          }
+        },
+        error: function(error) {
+          //like = 0;
+        }
+      });
+
+  }
 
 }

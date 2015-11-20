@@ -18,6 +18,9 @@ include 'header.php';
       margin-bottom: 40px;
       z-index: 900;
     }
+#timeline {
+padding-top: 25px;
+}
 
   </style>
   <!-- Start of Woopra Code -->
@@ -41,7 +44,22 @@ include 'head.php';
   <main class="mdl-layout__content">
     <div class="page-content">
       <div id="timeline">
-        <section id="cd-timeline" class="cd-container">
+        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="menuativo">
+        </section>
+        <section class="section--center mdl-grid mdl-grid--no-spacing section-header">
+          <h5 class="font_100">Programados para hoje</h5>
+        </section>
+        <section class="section--center mdl-grid mdl-grid--no-spacing" id="menusativos">
+        </section>
+        <section class="section--center mdl-grid mdl-grid--no-spacing section-header">
+          <h5 class="font_100">Próximos Menus</h5>
+        </section>
+        <section class="section--center mdl-grid mdl-grid--no-spacing" id="menusproximos">
+        </section>
+        <section class="section--center mdl-grid mdl-grid--no-spacing section-header">
+          <h5 class="font_100">Menus passados</h5>
+        </section>
+        <section class="section--center mdl-grid mdl-grid--no-spacing" id="menusanteriores">
         </section>
       </div>
     </div>
@@ -91,7 +109,7 @@ include 'footer.php';
 $( document ).ready(function() {
   // Handler for .ready() called.
 mudaSaudacao();
-carregaTimeline2();
+carregaTimeline();
 moment.locale('pt-BR');
 new WOW().init();
 //carregaEventos();
@@ -101,43 +119,10 @@ $(".abre_prato").fancybox({
   'preload'   : true,
   'showCloseButton' : false,
     'type'        : 'iframe'
-  });
-var timelineBlocks = $('.cd-timeline-block'),
-  offset = 0.8;
-
-//hide timeline blocks which are outside the viewport
-hideBlocks(timelineBlocks, offset);
-
-//on scolling, show/animate timeline blocks when enter the viewport
-$(window).on('scroll', function(){
-  (!window.requestAnimationFrame)
-    ? setTimeout(function(){ showBlocks(timelineBlocks, offset); }, 100)
-    : window.requestAnimationFrame(function(){ showBlocks(timelineBlocks, offset); });
 });
 
-function hideBlocks(blocks, offset) {
-  blocks.each(function(){
-    ( $(this).offset().top > $(window).scrollTop()+$(window).height()*offset ) && $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
-  });
-}
-
-function showBlocks(blocks, offset) {
-  blocks.each(function(){
-    ( $(this).offset().top <= $(window).scrollTop()+$(window).height()*offset && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) && $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-  });
-}
 });
 
-function scrollToElement(selector, time, verticalOffset) {
-    time = typeof(time) != 'undefined' ? time : 1000;
-    verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
-    element = $(selector);
-    offset = element.offset();
-    offsetTop = offset.top + verticalOffset;
-    $('.mdl-layout__content').animate({
-        scrollTop: offsetTop
-    }, time);           
-}
 
 </script>
 </html>

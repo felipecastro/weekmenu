@@ -307,7 +307,7 @@ font-size: 4em;
 .list_title a {
   font-size: 1.2em;
   line-height: 1.2em;
-  font-weight: 300;
+  font-weight: 400;
   text-decoration: none;
 }
 
@@ -328,7 +328,16 @@ font-size: 4em;
 
 .list_extra {
 font-size: 12px;
-font-weight: 100;
+//font-weight: 100;
+width: 100% !important;
+//padding: 16px 0px 16px 0px;
+}
+
+.list_extra_home {
+font-size: 12px;
+//font-weight: 100;
+width: 100% !important;
+padding: 16px 0px 0px 0px !important;
 }
 
 .list_extra_busca {
@@ -339,6 +348,10 @@ padding: 0 0 0 16px !important;
 
 .list_extra_busca_add {
 padding-top: 15% !important;
+}
+
+.icon_stats {
+    padding-right: 20px;
 }
 
 .font_100 {
@@ -377,6 +390,7 @@ z-index: 9999 !important;
 #pratodescnext {
  color: white;
  font-weight: 300;
+ margin-left: 15px;
 }
 #pratodescnext a {
  color: white;
@@ -592,4 +606,31 @@ min-height: 200px;
 font-size: 4em;
     padding-left: 25%;
 text-decoration: none;
+}
+
+.label-present {
+  background: #448AFF;
+}
+.label-past {
+  background: #EF9A9A;
+}
+.label-future {
+  background: #43A047;
+}
+
+.label-programacao {
+    padding: 5px;
+    color: white;
+    float: right;
+    border-radius: 2px;
+    margin-right: 5px;
+    font-weight: 100;
+    font-size: 1.1em;
+}
+
+.selo_amanha {
+  padding: 5px;
+  color: #C5CAE9;
+  border-radius: 2px;
+  background-color: #3F51B5;
 }

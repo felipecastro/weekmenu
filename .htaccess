@@ -1,12 +1,14 @@
 RewriteEngine On
 RewriteRule ^$ index.php
 RewriteRule ^/$ index.php
+RewriteRule ^hoje$ index.php
+RewriteRule ^hoje/$ index.php
 RewriteRule ^login/$ login.php
 RewriteRule ^login$ login.php
 RewriteRule ^signup/$ signup.php
 RewriteRule ^signup$ signup.php
-RewriteRule ^timeline/$ index.php
-RewriteRule ^timeline$ index.php
+RewriteRule ^timeline/$ timeline.php
+RewriteRule ^timeline$ timeline.php
 RewriteRule ^calendario/$ calendar.php
 RewriteRule ^calendario$ calendar.php
 RewriteRule ^explorar/$ explore.php
@@ -25,8 +27,10 @@ RewriteRule ^pm/([a-zA-Z0-9_-]+)$ pratomodal.php?id=$1
 RewriteRule ^pm/([a-zA-Z0-9_-]+)/$ pratomodal.php?id=$1
 RewriteRule ^menu/novo$ novomenu.php
 RewriteRule ^menu/novo/$ novomenu.php
-RewriteRule ^prato/novo/([a-zA-Z0-9_-]+)/([0-9_-]+)$ novoprato.php?menu=$1&dia=$2
-RewriteRule ^prato/novo/([a-zA-Z0-9_-]+)/([0-9_-]+)/$ novoprato.php?menu=$1&dia=$2
+RewriteRule ^prato/novo$ novoprato.php
+RewriteRule ^prato/novo/$ novoprato.php
+RewriteRule ^prato/novo/([a-zA-Z0-9_-]+)/([0-9_-]+)$ adicionaprato.php?menu=$1&dia=$2
+RewriteRule ^prato/novo/([a-zA-Z0-9_-]+)/([0-9_-]+)/$ adicionaprato.php?menu=$1&dia=$2
 RewriteRule ^u/([a-zA-Z0-9_-]+)$ profile.php?id=$1
 RewriteRule ^prato/novo$ novoprato.php
 RewriteRule ^prato/novo/$ novoprato.php
